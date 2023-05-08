@@ -1,5 +1,5 @@
 .login-dark {
-    height:100vh;
+    height:93vh;
     background:#475d62 url(images/cosmic-timetraveler-LhDWW8PhPoE-unsplash.jpg);
     background-size:cover;
     position:relative;
@@ -92,4 +92,9 @@ h2 {
 
 .login-dark form .btn-secondary:active {
     transform:translateY(1px);
+}
+
+footer {
+    background-color: #060608;
+    padding: 3px;
 }
