@@ -19,7 +19,7 @@
                 <span><i class="bi bi-bookmark-heart fs-3"></i></span>
                 <span class="fs-3 ms-2">TODO Aplikace</span>
             </div>
-            <a href="#" class="col-12 col-md-auto mb-2 mb-md-0 text-light text-decoration-none">
+            <a href="#" class="col-12 col-md-auto mb-2 mb-md-0 text-light text-decoration-none text-center">
                 <span class="fs-3">Rodina Nováků - Milan</span>
             </a>
             <div class="col-md-3 text-end">
@@ -30,17 +30,24 @@
     </div>
 
     <div class="container" style="background-color:#1e2833;height: 82vh; box-shadow:3px 3px 4px rgba(0,0,0,0.2);">
-        <form method="get" id="categoryFilterForm">
-            <div class="form-group">
-                <label for="category">Kategorie:</label>
-                <select name="category" id="category">
+
+        <form method="get" id="categoryFilterForm" class="text-light pt-2" data-bs-theme="dark">
+            <div class="form-group row" style="max-width: 250px;">
+                <label class="col-4" for="category">Kategorie:</label>
+                <div class="col-8">
+                <select name="category" id="category" class="form-select form-select-sm">
                     <option>Vše</option>
                     <option>ÚKLID</option>
                     <option>Nákupy</option>
                 </select>
+                </div>
             </div>
         </form>
+
+
+
     </div>
+
 
 
 
