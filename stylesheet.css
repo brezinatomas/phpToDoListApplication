@@ -5,7 +5,7 @@
     position:relative;
 }
 
-.login-dark form {
+.login-dark .big-form {
     max-width:450px;
     width:90%;
     background-color:#1e2833;
@@ -56,6 +56,15 @@
     text-shadow:none;
     outline:none;
 }
+
+header .btn {
+    border:none;
+    border-radius:4px;
+    box-shadow:none;
+    text-shadow:none;
+    outline:none;
+}
+
 h2 {
     text-align: center;
     margin: 0;
@@ -91,6 +100,10 @@ h2 {
 }
 
 .login-dark form .btn-secondary:active {
+    transform:translateY(1px);
+}
+
+header .btn:active {
     transform:translateY(1px);
 }
 
