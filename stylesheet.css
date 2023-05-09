@@ -111,3 +111,21 @@ footer {
     background-color: #060608;
     padding: 3px;
 }
+
+.ukoly-container {
+    background-color:#1e2833;
+    height: 73vh;
+    box-shadow:3px 3px 4px rgba(0,0,0,0.2);
+}
+
+@media screen and (min-width: 768px) {
+    .ukoly-container {
+        height: 78vh !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .ukoly-container {
+        height: 82vh !important;
+    }
+}
