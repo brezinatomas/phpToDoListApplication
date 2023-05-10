@@ -2,6 +2,12 @@
 //načteme připojení k databázi a inicializujeme session
 require_once 'user.inc.php';
 
+if(!isset($_SESSION["user_id"])){
+    //uživatel není přihlášen => přesměrujeme ho na přihlašovací stránku
+    header('Location: prihlaseni.php');
+    die();
+}
+
 $pageTitle='Úkoly pro dnešní den';
 //vložíme do stránek hlavičku
 include 'header.inc.php';
