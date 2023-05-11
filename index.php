@@ -77,7 +77,7 @@ echo  '</select>
 $posts = $query->fetchAll(PDO::FETCH_ASSOC);
 if (!empty($posts)){
     #region výpis příspěvků
-    echo '<div class="row justify-content-evenly mt-3">';
+    echo '<div class="row justify-content-evenly mt-3 pb-3">';
     foreach ($posts as $post) {
         echo '<article class="col-10 col-md-5 col-lg-3 col-xxl-3 border-0 mx-1 my-1 px-2 py-1 bg-light rounded">';
         echo '<div class="d-flex justify-content-between">

@@ -1,5 +1,5 @@
 .login-dark {
-    height:93vh;
+    min-height:93vh;
     background:#475d62 url(images/cosmic-timetraveler-LhDWW8PhPoE-unsplash.jpg);
     background-size:cover;
     position:relative;
@@ -114,18 +114,18 @@ footer {
 
 .ukoly-container {
     background-color:#1e2833;
-    height: 73vh;
+    min-height: 73vh;
     box-shadow:3px 3px 4px rgba(0,0,0,0.2);
 }
 
 @media screen and (min-width: 768px) {
     .ukoly-container {
-        height: 78vh !important;
+        min-height: 78vh !important;
     }
 }
 
 @media screen and (min-width: 992px) {
     .ukoly-container {
-        height: 82vh !important;
+        min-height: 82vh !important;
     }
 }
