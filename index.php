@@ -73,8 +73,12 @@ if (!empty($categories)){
 
 echo  '</select>
                 <input type="submit" value="OK" class="d-none" />
-                </div>
-            </div>
+                </div>';
+if(!empty($currentUser) && ($currentUser['role']=='admin')){
+    echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm m-1">Smazat</a>';
+    echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm m-1">Přidat kategorii</a>';
+}
+         echo   '</div>
         </form>';
 
 $posts = $query->fetchAll(PDO::FETCH_ASSOC);
