@@ -54,9 +54,9 @@ if(!empty($currentUser) && ($currentUser['role']=='admin')){
     <div class="container ukoly-container">
 
         <form method="get" id="categoryFilterForm" class="text-light pt-2" data-bs-theme="dark">
-            <div class="form-group row" style="max-width: 250px;">
-                <label class="col-4" for="category">Kategorie:</label>
-                <div class="col-8">
+            <div class="form-group row" style="max-width: 500px;">
+                <label class="col-2" for="category">Kategorie:</label>
+                <div class="col-4">
                     <select name="category" id="category" onchange="document.getElementById(\'categoryFilterForm\').submit();" class="form-select form-select-sm">
                         <option value="">Nerozhoduje</option>';
 
@@ -75,8 +75,8 @@ echo  '</select>
                 <input type="submit" value="OK" class="d-none" />
                 </div>';
 if(!empty($currentUser) && ($currentUser['role']=='admin')){
-    echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm m-1">Smazat</a>';
-    echo '<a href="zmenaKategorie.php" class="btn btn-outline-danger btn-sm m-1">Přidat kategorii</a>';
+    echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm col-2 me-1">Smazat</a>';
+    echo '<a href="zmenaKategorie.php" class="btn btn-outline-light btn-sm col-3 ms-1">Nová kategorie</a>';
 }
          echo   '</div>
         </form>';
