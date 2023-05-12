@@ -41,9 +41,12 @@ echo '<div class="login-dark">
              echo  '<span class="fs-3">';
              echo 'Rodina nováků - ' .htmlspecialchars($_SESSION['user_name']).'</span>
             </a>
-            <div class="col-md-3 text-end">
-                <a href="#" class="btn btn-success">Moje úkoly</a>
-                <a href="odhlasit.php" class="btn btn-secondary">Odhlásit se</a>
+            <div class="col-md-3 text-end">';
+if(!empty($currentUser) && ($currentUser['role']=='admin')){
+    echo '<a href="zmenaUkolu.php'.(!empty($_GET['category'])?'?category='.htmlspecialchars($_GET['category']):'').'" class="btn btn-light mb-1">Přidat úkol</a>';
+}
+              echo  '<a href="#" class="btn btn-success ms-1 mb-1">Moje úkoly</a>
+                <a href="odhlasit.php" class="btn btn-secondary mb-1">Odhlásit se</a>
             </div>
         </header>
     </div>
@@ -88,6 +91,12 @@ if (!empty($posts)){
                 </div>';
         echo '<div>' . nl2br(htmlspecialchars($post['text'])) . '</div>';
         echo '<div class="small text-muted">' . nl2br(htmlspecialchars($post['poznamka'])) . '</div>';
+
+        if(!empty($currentUser) && ($currentUser['role']=='admin')){
+            echo '<a href="zmenaUkolu.php?id='.$post['post_id'].'" class="btn btn-outline-secondary btn-sm m-1">Upravit</a>';
+            echo '<a href="odstranitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-danger btn-sm m-1">Smazat</a>';
+        }
+
         echo '</article>';
     }
     echo '</div>';
