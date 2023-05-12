@@ -76,7 +76,7 @@ echo  '</select>
                 </div>';
 if(!empty($currentUser) && ($currentUser['role']=='admin')){
     echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm m-1">Smazat</a>';
-    echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm m-1">Přidat kategorii</a>';
+    echo '<a href="zmenaKategorie.php" class="btn btn-outline-danger btn-sm m-1">Přidat kategorii</a>';
 }
          echo   '</div>
         </form>';
