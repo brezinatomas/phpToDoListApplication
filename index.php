@@ -46,14 +46,14 @@ echo '<div class="login-dark">
                 <span class="fs-3 ms-2">TODO Aplikace</span>
             </div>
             <a href="index.php" class="col-12 col-md-auto mb-2 mb-md-0 text-light text-decoration-none text-center">';
-             echo  '<span class="fs-3">';
-             echo  htmlspecialchars($_SESSION['family_name']). ' - ' .htmlspecialchars($_SESSION['user_name']).'</span>
+echo  '<span class="fs-3">';
+echo  htmlspecialchars($_SESSION['family_name']). ' - ' .htmlspecialchars($_SESSION['user_name']).'</span>
             </a>
             <div class="col-md-3 text-end">';
 if(!empty($currentUser) && ($currentUser['role']=='admin')){
     echo '<a href="zmenaUkolu.php'.(!empty($_GET['category'])?'?category='.htmlspecialchars($_GET['category']):'').'" class="btn btn-light mb-1">Přidat úkol</a>';
 }
-              echo  '<a href="#" class="btn btn-success ms-1 mb-1">Moje úkoly</a>
+echo  '<a href="#" class="btn btn-success ms-1 mb-1">Moje úkoly</a>
                 <a href="odhlasit.php" class="btn btn-secondary mb-1">Odhlásit se</a>
             </div>
         </header>
@@ -67,8 +67,9 @@ if(!empty($currentUser) && ($currentUser['role']=='admin')){
                 <div class="col-4">
                     <select name="category" id="category" onchange="document.getElementById(\'categoryFilterForm\').submit();" class="form-select form-select-sm">
                         <option value="">Nerozhoduje</option>';
-
-$categories=$db->query('SELECT * FROM categories ORDER BY name;')->fetchAll(PDO::FETCH_ASSOC);
+$categoriesQuery=$db->prepare('SELECT * FROM categories WHERE family_id=:family_id ORDER BY name;');
+$categoriesQuery->execute([':family_id'=>$_SESSION['family_id']]);
+$categories=$categoriesQuery->fetchAll(PDO::FETCH_ASSOC);
 if (!empty($categories)){
     foreach ($categories as $category){
         echo '<option value="'.$category['category_id'].'"';//u category_id nemusí být ošetření speciálních znaků, protože jde o číslo
@@ -86,7 +87,7 @@ if(!empty($currentUser) && ($currentUser['role']=='admin')){
     echo '<a href="odstranitKategorii.php?category='.@$_GET['category'].'" class="btn btn-outline-danger btn-sm col-2 me-1">Smazat</a>';
     echo '<a href="zmenaKategorie.php" class="btn btn-outline-light btn-sm col-3 ms-1">Nová kategorie</a>';
 }
-         echo   '</div>
+echo   '</div>
         </form>';
 
 $posts = $query->fetchAll(PDO::FETCH_ASSOC);
