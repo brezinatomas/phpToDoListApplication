@@ -8,6 +8,11 @@ if(!isset($_SESSION["user_id"])){
     die();
 }
 
+if(!empty($currentUser) && ($currentUser['family_id']==NULL)){
+    header('Location: novaRodina.php');
+    die();
+}
+
 $pageTitle='Úkoly pro dnešní den';
 //vložíme do stránek hlavičku
 include 'header.inc.php';
