@@ -150,8 +150,8 @@ include 'header.inc.php';
             <select name="category" id="category" required class="form-control <?php echo (!empty($errors['category'])?'is-invalid':''); ?>">
                 <option value="">--vyberte--</option>
                 <?php
-                $categoryQuery=$db->prepare('SELECT * FROM categories ORDER BY name;');
-                $categoryQuery->execute();
+                $categoryQuery=$db->prepare('SELECT * FROM categories WHERE family_id=:family_id ORDER BY name;');
+                $categoryQuery->execute([':family_id'=>$_SESSION['family_id']]);
                 $categories=$categoryQuery->fetchAll(PDO::FETCH_ASSOC);
                 if (!empty($categories)){
                     foreach ($categories as $category){
