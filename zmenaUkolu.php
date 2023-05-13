@@ -23,9 +23,12 @@ $postDate='';
 
 #region načtení existujícího příspěvku z DB
 if (!empty($_REQUEST['id'])){
-    $postQuery=$db->prepare('SELECT * FROM posts WHERE post_id=:id LIMIT 1;');
+    $postQuery=$db->prepare('SELECT * FROM posts JOIN users USING (user_id) WHERE post_id=:id LIMIT 1;');
     $postQuery->execute([':id'=>$_REQUEST['id']]);
     if ($post=$postQuery->fetch(PDO::FETCH_ASSOC)){
+        if($post['family_id']!=$_SESSION['family_id']) {
+            die('Tento úkol nebyl nalezen.');
+        }
         //naplníme pomocné proměnné daty příspěvku
         $postId=$post['post_id'];
         $postUserName=$post['user_id'];
@@ -169,8 +172,10 @@ include 'header.inc.php';
             <select name="username" id="username" required class="form-control <?php echo (!empty($errors['username'])?'is-invalid':''); ?>">
                 <option value="">--vyberte--</option>
                 <?php
-                $userQuery=$db->prepare('SELECT * FROM users ORDER BY name;');
-                $userQuery->execute();
+                $userQuery=$db->prepare('SELECT * FROM users WHERE family_id=:family_id ORDER BY name;');
+                $userQuery->execute([
+                    ':family_id'=>$_SESSION['family_id']
+                ]);
                 $users=$userQuery->fetchAll(PDO::FETCH_ASSOC);
                 if (!empty($users)){
                     foreach ($users as $user){
