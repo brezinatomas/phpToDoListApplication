@@ -70,7 +70,7 @@ include 'header.inc.php';
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Vytvořit rodinu</button>
-                <a href="prihlaseni.php" class="btn btn-secondary">Chci se připojit k rodině</a>
+                <a href="existujiciRodina.php" class="btn btn-secondary">Chci se připojit k rodině</a>
             </div>
         </form>
     </div>
