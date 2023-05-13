@@ -21,17 +21,20 @@ if (!empty($_GET['category'])){
     #region výběr příspěvků z konkrétní kategorie
     $query = $db->prepare('SELECT
                            posts.*, users.name AS user_name, users.email, categories.name AS category_name
-                           FROM posts JOIN users USING (user_id) JOIN categories USING (category_id) WHERE posts.category_id=:category ORDER BY updated DESC;');
+                           FROM posts JOIN users USING (user_id) JOIN categories USING (category_id) WHERE posts.category_id=:category AND users.family_id=:family_id ORDER BY updated DESC;');
     $query->execute([
-        ':category'=>$_GET['category']
+        ':category'=>$_GET['category'],
+        ':family_id'=>$_SESSION['family_id']
     ]);
     #endregion výběr příspěvků z konkrétní kategorie
 }else{
     #region výběr příspěvků bez ohledu na kategorii
     $query = $db->prepare('SELECT
                            posts.*, users.name AS user_name, users.email, categories.name AS category_name
-                           FROM posts JOIN users USING (user_id) JOIN categories USING (category_id) ORDER BY updated DESC;');
-    $query->execute();
+                           FROM posts JOIN users USING (user_id) JOIN categories USING (category_id) WHERE users.family_id=:family_id ORDER BY updated DESC;');
+    $query->execute([
+        ':family_id'=>$_SESSION['family_id']
+    ]);
     #region výběr příspěvků bez ohledu na kategorii
 }
 
