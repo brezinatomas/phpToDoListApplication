@@ -19,6 +19,7 @@ $postUserName='';
 $postCategory=(!empty($_REQUEST['category'])?intval($_REQUEST['category']):'');
 $postText='';
 $postPoznamka='';
+$postDate='';
 
 #region načtení existujícího příspěvku z DB
 if (!empty($_REQUEST['id'])){
@@ -31,7 +32,6 @@ if (!empty($_REQUEST['id'])){
         $postCategory=$post['category_id'];
         $postText=$post['text'];
         $postPoznamka=$post['poznamka'];
-
     }else{
         exit('Tento úkol neexistuje.');//tady by mohl být i lepší výpis chyby :)
     }
@@ -82,8 +82,12 @@ if (!empty($_POST)){
     #region kontrola textu
     $postText=trim(@$_POST['text']);
     $postPoznamka=trim(@$_POST['poznamka']);
+    $postDate=trim(@$_POST['updated']);
     if (empty($postText)){
         $errors['text']='Musíte zadat text příspěvku.';
+    }
+    if (empty($postDate)){
+        $errors['updated']='Musíte zadat datum splnění úkolu.';
     }
     #endregion kontrola textu
 
@@ -92,23 +96,25 @@ if (!empty($_POST)){
 
         if ($postId){
             #region aktualizace existujícího příspěvku
-            $saveQuery=$db->prepare('UPDATE posts SET category_id=:category, text=:text, poznamka=:poznamka, user_id=:username WHERE post_id=:id LIMIT 1;');
+            $saveQuery=$db->prepare('UPDATE posts SET category_id=:category, text=:text, poznamka=:poznamka, user_id=:username, updated=:updated WHERE post_id=:id LIMIT 1;');
             $saveQuery->execute([
                 ':category'=>$postCategory,
                 ':text'=>$postText,
                 ':poznamka'=>$postPoznamka,
                 ':id'=>$postId,
-                ':username'=>$postUserName
+                ':username'=>$postUserName,
+                ':updated'=>$postDate
             ]);
             #endregion aktualizace existujícího příspěvku
         }else{
             #region uložení nového příspěvku
-            $saveQuery=$db->prepare('INSERT INTO posts (user_id, category_id, text, poznamka) VALUES (:username, :category, :text, :poznamka);');
+            $saveQuery=$db->prepare('INSERT INTO posts (user_id, category_id, text, poznamka, updated) VALUES (:username, :category, :text, :poznamka, :updated);');
             $saveQuery->execute([
                 ':username'=>$postUserName,
                 ':category'=>$postCategory,
                 ':text'=>$postText,
-                ':poznamka'=>$postPoznamka
+                ':poznamka'=>$postPoznamka,
+                ':updated'=>$postDate
             ]);
             #endregion uložení nového příspěvku
         }
@@ -175,6 +181,16 @@ include 'header.inc.php';
             <?php
             if (!empty($errors['username'])){
                 echo '<div class="invalid-feedback">'.$errors['username'].'</div>';
+            }
+            ?>
+        </div>
+
+        <div class="form-group">
+            <label for="updated">Datum splnění:</label>
+            <input type="date" name="updated" id="updated" required class="form-control <?php echo (!empty($errors['updated'])?'is-invalid':''); ?>"><?php echo htmlspecialchars($postDate)?></input>
+            <?php
+            if (!empty($errors['updated'])){
+                echo '<div class="invalid-feedback">'.$errors['updated'].'</div>';
             }
             ?>
         </div>
