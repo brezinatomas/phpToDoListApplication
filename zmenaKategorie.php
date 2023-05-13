@@ -32,9 +32,10 @@ if (!empty($_POST)){
         #region uložení dat
 
             #region uložení nového příspěvku
-            $saveQuery=$db->prepare('INSERT INTO categories (category_id, name) VALUES (NULL, :text);');
+            $saveQuery=$db->prepare('INSERT INTO categories (category_id, name, family_id) VALUES (NULL, :text, :family_id);');
             $saveQuery->execute([
                 ':text'=>$categoryText,
+                ':family_id'=>$_SESSION['family_id']
             ]);
             #endregion uložení nového příspěvku
 
