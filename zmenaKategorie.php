@@ -54,8 +54,9 @@ $pageTitle='Nová kategorie';
 
 include 'header.inc.php';
 ?>
-
-    <form method="post">
+    <div class="login-dark" data-bs-theme="dark">
+    <form method="post" class="big-form">
+        <h2 style="padding-bottom: 35px;">Přidání nové kategorie</h2>
         <input type="hidden" name="id" value="<?php echo $categoryId;?>" />
 
 
@@ -69,11 +70,12 @@ include 'header.inc.php';
             ?>
         </div>
 
-
-        <button type="submit" class="btn btn-primary">uložit</button>
-        <a href="index.php" class="btn btn-light">zrušit</a>
+        <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Uložit</button>
+        <a href="index.php" class="btn btn-outline-danger">Zrušit</a>
+        </div>
     </form>
-
+    </div>
 <?php
 //vložíme do stránek patičku
 include 'footer.inc.php';
