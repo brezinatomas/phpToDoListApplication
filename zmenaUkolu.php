@@ -151,7 +151,9 @@ include 'header.inc.php';
                 <option value="">--vyberte--</option>
                 <?php
                 $categoryQuery=$db->prepare('SELECT * FROM categories WHERE family_id=:family_id ORDER BY name;');
-                $categoryQuery->execute([':family_id'=>$_SESSION['family_id']]);
+                $categoryQuery->execute([
+                        ':family_id'=>$_SESSION['family_id']
+                ]);
                 $categories=$categoryQuery->fetchAll(PDO::FETCH_ASSOC);
                 if (!empty($categories)){
                     foreach ($categories as $category){
