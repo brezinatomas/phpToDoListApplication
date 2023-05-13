@@ -21,6 +21,7 @@ if (!empty($_POST)){
             //heslo je platné => přihlásíme uživatele
             $_SESSION['user_id']=$user['user_id'];
             $_SESSION['user_name']=$user['name'];
+            $_SESSION['family_id']=$user['family_id'];
             header('Location: index.php');
             exit();
         }else{
