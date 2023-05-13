@@ -22,6 +22,14 @@ if (!empty($_POST)){
             $_SESSION['user_id']=$user['user_id'];
             $_SESSION['user_name']=$user['name'];
             $_SESSION['family_id']=$user['family_id'];
+            if ($user['family_id']!=NULL) {
+                $familyQuery=$db->prepare('SELECT * FROM families WHERE family_id=:family_id LIMIT 1;');
+                $familyQuery->execute([
+                   ':family_id'=>$user['family_id']
+                ]);
+                $family=$familyQuery->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['family_name']=$family['family_name'];
+            }
             header('Location: index.php');
             exit();
         }else{

@@ -33,6 +33,7 @@ if (!empty($_POST)){
         ]);
 
         $_SESSION['family_id']=$db->lastInsertId();
+        $_SESSION['family_name']=$family_name;
 
         //uživatele rovnou přihlásíme
         $updateQuery=$db->prepare('UPDATE users SET family_id=:family_id WHERE user_id=:user_id LIMIT 1;');

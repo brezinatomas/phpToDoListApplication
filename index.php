@@ -44,7 +44,7 @@ echo '<div class="login-dark">
             </div>
             <a href="index.php" class="col-12 col-md-auto mb-2 mb-md-0 text-light text-decoration-none text-center">';
              echo  '<span class="fs-3">';
-             echo 'Rodina nováků - ' .htmlspecialchars($_SESSION['user_name']).'</span>
+             echo  htmlspecialchars($_SESSION['family_name']). ' - ' .htmlspecialchars($_SESSION['user_name']).'</span>
             </a>
             <div class="col-md-3 text-end">';
 if(!empty($currentUser) && ($currentUser['role']=='admin')){

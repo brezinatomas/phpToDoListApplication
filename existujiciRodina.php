@@ -43,6 +43,8 @@ if (!empty($_POST)){
             ':family_id'=>$_SESSION['family_id']
         ]);
 
+        $name = $idQuery->fetch(PDO::FETCH_ASSOC);
+        $_SESSION['family_name']=$name['family_name'];
 
         //přesměrování na homepage
         header('Location: index.php');
