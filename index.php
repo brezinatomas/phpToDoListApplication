@@ -37,7 +37,7 @@ echo '<div class="login-dark">
                 <span><i class="bi bi-bookmark-heart fs-3"></i></span>
                 <span class="fs-3 ms-2">TODO Aplikace</span>
             </div>
-            <a href="#" class="col-12 col-md-auto mb-2 mb-md-0 text-light text-decoration-none text-center">';
+            <a href="index.php" class="col-12 col-md-auto mb-2 mb-md-0 text-light text-decoration-none text-center">';
              echo  '<span class="fs-3">';
              echo 'Rodina nováků - ' .htmlspecialchars($_SESSION['user_name']).'</span>
             </a>
