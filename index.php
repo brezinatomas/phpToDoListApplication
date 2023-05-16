@@ -34,6 +34,14 @@ if (!empty($_GET['category'])){
     #region výběr příspěvků bez ohledu na kategorii
 }
 
+if (!empty($_GET['mojeukoly'])){
+    #region výběr příspěvků z konkrétní kategorie
+    $query = $db->prepare('SELECT DISTINCT posts.*, categories.name AS category_name FROM posts JOIN users_posts USING (post_id) JOIN users USING (user_id) JOIN categories USING (category_id) WHERE user_id=:user_id ORDER BY updated DESC;');
+    $query->execute([
+        ':user_id'=>$_SESSION['user_id']
+    ]);
+}
+
 echo '<div class="login-dark">
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -49,7 +57,9 @@ echo  htmlspecialchars($_SESSION['family_name']). ' ID:'.htmlspecialchars($_SESS
 if(!empty($currentUser) && ($currentUser['role']=='admin')){
     echo '<a href="zmenaUkolu.php'.(!empty($_GET['category'])?'?category='.htmlspecialchars($_GET['category']):'').'" class="btn btn-light mb-1">Přidat úkol</a>';
 }
-echo  '<a href="#" class="btn btn-success ms-1 mb-1">Moje úkoly</a>
+echo  '<form style="display: inline-block" method="get">
+            <input type="submit" name="mojeukoly" id="mojeukoly" class="button btn btn-success ms-1 mb-1" value="Moje úkoly" />
+        </form>
                 <a href="odhlasit.php" class="btn btn-secondary mb-1">Odhlásit se</a>
             </div>
         </header>
