@@ -14,7 +14,7 @@ if(empty($currentUser) || ($currentUser['role']!='admin')){
 
 if (!empty($_GET['id'])){
 
-    $postQuery= $db->prepare('SELECT * FROM posts JOIN users USING (user_id) WHERE post_id=:id LIMIT 1;');
+    $postQuery= $db->prepare('SELECT * FROM posts JOIN users_posts USING (post_id) JOIN users USING (user_id) WHERE post_id=:id LIMIT 1;');
     $postQuery->execute([':id'=>$_GET['id']]);
     if ($post=$postQuery->fetch(PDO::FETCH_ASSOC)){
         if($post['family_id']!=$_SESSION['family_id']) {

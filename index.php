@@ -19,9 +19,7 @@ include 'header.inc.php';
 
 if (!empty($_GET['category'])){
     #region výběr příspěvků z konkrétní kategorie
-    $query = $db->prepare('SELECT
-                           posts.*, users.name AS user_name, users.email, categories.name AS category_name
-                           FROM posts JOIN users USING (user_id) JOIN categories USING (category_id) WHERE posts.category_id=:category AND users.family_id=:family_id ORDER BY updated DESC;');
+    $query = $db->prepare('SELECT DISTINCT posts.*, categories.name AS category_name FROM posts JOIN users_posts USING (post_id) JOIN users USING (user_id) JOIN categories USING (category_id) WHERE posts.category_id=:category AND users.family_id=:family_id ORDER BY updated DESC;');
     $query->execute([
         ':category'=>$_GET['category'],
         ':family_id'=>$_SESSION['family_id']
@@ -29,9 +27,7 @@ if (!empty($_GET['category'])){
     #endregion výběr příspěvků z konkrétní kategorie
 }else{
     #region výběr příspěvků bez ohledu na kategorii
-    $query = $db->prepare('SELECT
-                           posts.*, users.name AS user_name, users.email, categories.name AS category_name
-                           FROM posts JOIN users USING (user_id) JOIN categories USING (category_id) WHERE users.family_id=:family_id ORDER BY updated DESC;');
+    $query = $db->prepare('SELECT DISTINCT posts.*, categories.name AS category_name FROM posts JOIN users_posts USING (post_id) JOIN users USING (user_id) JOIN categories USING (category_id) WHERE users.family_id=:family_id ORDER BY updated DESC;');
     $query->execute([
         ':family_id'=>$_SESSION['family_id']
     ]);
@@ -96,10 +92,16 @@ if (!empty($posts)){
     echo '<div class="row justify-content-evenly mt-3 pb-3">';
     foreach ($posts as $post) {
         echo '<article class="col-10 col-md-5 col-lg-3 col-xxl-3 border-0 mx-1 my-1 px-2 py-1 bg-light rounded">';
-        echo '<div class="d-flex justify-content-between">
-                    <strong>' . htmlspecialchars($post['user_name']);
+        echo '<div class="d-flex justify-content-between"><strong>';
+        $userNameQuery=$db->prepare('SELECT name FROM users JOIN users_posts USING (user_id) JOIN posts USING (post_id) WHERE post_id=:post_id ORDER BY name;');
+        $userNameQuery->execute([':post_id'=>$post['post_id']]);
+        $userNames=$userNameQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($userNames as $userName) {
+            echo htmlspecialchars($userName['name']);
+            echo ' ';
+        }
         echo ' - ';
-        echo date('d.m.Y', strtotime($post['updated'])) . '</strong>';
+        echo  date('d.m.Y', strtotime($post['updated'])) . '</strong>';
         echo '<span class="badge rounded-pill text-bg-warning mt-1">' . htmlspecialchars($post['category_name']) . '</span>
                 </div>';
         echo '<div>' . nl2br(htmlspecialchars($post['text'])) . '</div>';
