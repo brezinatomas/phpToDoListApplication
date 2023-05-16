@@ -116,7 +116,7 @@ if (!empty($posts)){
                 </div>';
         echo '<div>' . nl2br(htmlspecialchars($post['text'])) . '</div>';
         echo '<div class="small text-muted">' . nl2br(htmlspecialchars($post['poznamka'])) . '</div>';
-
+        echo '<a href="prevzitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-success btn-sm m-1">Převzít</a>';
         if(!empty($currentUser) && ($currentUser['role']=='admin')){
             echo '<a href="zmenaUkolu.php?id='.$post['post_id'].'" class="btn btn-outline-secondary btn-sm m-1">Upravit</a>';
             echo '<a href="odstranitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-danger btn-sm m-1">Smazat</a>';
