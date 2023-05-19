@@ -101,7 +101,11 @@ if (!empty($posts)){
     #region výpis příspěvků
     echo '<div class="row justify-content-evenly mt-3 pb-3">';
     foreach ($posts as $post) {
-        echo '<article class="col-10 col-md-5 col-lg-3 col-xxl-3 border-0 mx-1 my-1 px-2 py-1 bg-light rounded">';
+        if ($post['splneno'] != 1) {
+            echo '<article class="col-10 col-md-5 col-lg-3 col-xxl-3 border-0 mx-1 my-1 px-2 py-1 bg-light rounded" style="background-color: chartreuse !important;">';
+        } else {
+            echo '<article class="col-10 col-md-5 col-lg-3 col-xxl-3 border-0 mx-1 my-1 px-2 py-1 bg-light rounded">';
+        }
         echo '<div class="d-flex justify-content-between"><strong>';
         $userNameQuery=$db->prepare('SELECT name FROM users JOIN users_posts USING (user_id) JOIN posts USING (post_id) WHERE post_id=:post_id ORDER BY name;');
         $userNameQuery->execute([':post_id'=>$post['post_id']]);
@@ -116,9 +120,14 @@ if (!empty($posts)){
                 </div>';
         echo '<div>' . nl2br(htmlspecialchars($post['text'])) . '</div>';
         echo '<div class="small text-muted">' . nl2br(htmlspecialchars($post['poznamka'])) . '</div>';
-        echo '<a href="prevzitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-success btn-sm m-1">Převzít</a>';
+        if($post['splneno'] == 1){
+            echo '<a href="splnitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-primary btn-sm m-1">Splnit</a>';
+            echo '<a href="prevzitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-success btn-sm m-1">Převzít</a>';
+            if(!empty($currentUser) && ($currentUser['role']=='admin')){
+                echo '<a href="zmenaUkolu.php?id='.$post['post_id'].'" class="btn btn-outline-secondary btn-sm m-1">Upravit</a>';
+            }
+        }
         if(!empty($currentUser) && ($currentUser['role']=='admin')){
-            echo '<a href="zmenaUkolu.php?id='.$post['post_id'].'" class="btn btn-outline-secondary btn-sm m-1">Upravit</a>';
             echo '<a href="odstranitUkol.php?id='.$post['post_id'].'" class="btn btn-outline-danger btn-sm m-1">Smazat</a>';
         }
 
