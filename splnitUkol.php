@@ -17,7 +17,10 @@ if (!empty($_GET['id'])){
         if($post['family_id']!=$_SESSION['family_id']) {
             die('Tento úkol nebyl nalezen.');
         }
-
+        if($post['splneno']!= 1) {
+            header('Location: index.php');
+            die();
+        }
         $updatePostQuery=$db->prepare('UPDATE posts SET splneno=0 WHERE post_id=:post_id;');
         $updatePostQuery->execute([
             ':post_id'=>$_GET['id']

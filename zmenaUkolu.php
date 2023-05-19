@@ -29,6 +29,10 @@ if (!empty($_REQUEST['id'])){
         if($post['family_id']!=$_SESSION['family_id']) {
             die('Tento úkol nebyl nalezen.');
         }
+        if($post['splneno']!= 1) {
+            header('Location: index.php');
+            die();
+        }
         //naplníme pomocné proměnné daty příspěvku
         $postId=$post['post_id'];
         $postCategory=$post['category_id'];

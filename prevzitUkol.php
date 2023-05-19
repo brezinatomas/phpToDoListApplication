@@ -17,6 +17,10 @@ if (!empty($_GET['id'])){
         if($post['family_id']!=$_SESSION['family_id']) {
             die('Tento úkol nebyl nalezen.');
         }
+        if($post['splneno']!= 1) {
+            header('Location: index.php');
+            die();
+        }
         $deleteUserQuery=$db->prepare('DELETE FROM users_posts WHERE post_id =:post_id');
         $deleteUserQuery->execute([
             ':post_id'=>$_GET['id']
